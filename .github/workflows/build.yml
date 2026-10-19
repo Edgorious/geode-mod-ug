@@ -1,0 +1,24 @@
+
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: geode-sdk/build-geode-mod@main
+        with:
+          sdk: latest
+          cli: latest
+      - uses: actions/upload-artifact@v4
+        with:
+          name: underground-geode-build
+          path: |
+            build/**/*.geode
+            build/**/*.dll
+            build/**/*.log
